@@ -93,25 +93,7 @@ class SnakeGame(Game):
     def has_head_and_tail_colision(self):
         return (len(self.snake) != len(set(self.snake)))
 
-    def step(self, action):
-        self.screen.fill(self.COLOR_BLACK)
 
-        self.execute_action(action)
-        self.update_screen_elements()
-        self.update_game_state()
-
-        pygame.display.flip()
-
-        self.clock.tick(10)
-        return self.current_frame, self.current_reward, self.game_over, self.score
-
-    def get_frame(self):
-        return pygame.surfarray.array3d(self.screen)
-		
-    def quit_game(self):
-        pygame.quit()
-
-		
 if __name__ == '__main__':
     game = SnakeGame()
 

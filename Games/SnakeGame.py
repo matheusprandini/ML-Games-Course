@@ -9,15 +9,7 @@ from Game import Game
 class SnakeGame(Game):
 
     def __init__(self):
-        pygame.init()
-        pygame.display.set_caption('Snake')
-        self.COLOR_WHITE = (255, 255, 255)
-        self.COLOR_BLACK = (0, 0, 0)
-        self.COLOR_GREEN = (25, 255, 0)
-        self.COLOR_RED = (255,0,0)
-        self.GAME_WIDTH = 200
-        self.GAME_HEIGHT = 200
-        self.reset()
+        super().__init__('Snake', 200, 200)
 
     def reset(self):
         super().reset()

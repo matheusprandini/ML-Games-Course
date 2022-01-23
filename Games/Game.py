@@ -1,11 +1,7 @@
-# -*- coding: utf-8 -*-
-from __future__ import division, print_function
 import abc
-import collections
-import numpy as np
 import pygame
-import random
 import os
+
 
 x = 1
 y = 40

@@ -1,7 +1,5 @@
 import pygame, random
-import collections
 import numpy as np
-import os
 
 from pygame.locals import *
 

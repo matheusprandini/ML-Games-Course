@@ -5,16 +5,10 @@ import os
 
 from pygame.locals import *
 
-LEFT = 0
-RIGHT = 1
-UP = 2
-DOWN = 3
+from Game import Game
 
-x = 1
-y = 40
-os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (x,y)
 
-class SnakeGame():
+class SnakeGame(Game):
 
     def __init__(self):
         pygame.init()
@@ -27,30 +21,46 @@ class SnakeGame():
         self.GAME_HEIGHT = 200
         self.reset()
 
+    def reset(self):
+        super().reset()
+
+        self.direction = self.LEFT
+		
+        self.snake = [(50, 50), (60, 50), (70,50)]
+        self.head_skin = pygame.Surface((10,10))
+        self.head_skin.fill(self.COLOR_GREEN)
+        self.tail_skin = pygame.Surface((10,10))
+        self.tail_skin.fill(self.COLOR_WHITE)
+        
+        self.apple_pos = self.generate_random_position()
+        self.apple = pygame.Surface((10,10))
+        self.apple.fill(self.COLOR_RED)
+
     def execute_action(self, action):
-        if action == LEFT and self.direction != RIGHT:
-            self.direction = LEFT
-        elif action == RIGHT and self.direction != LEFT:
-            self.direction = RIGHT
-        elif action == UP and self.direction != DOWN:
-            self.direction = UP
-        elif action == DOWN and self.direction != UP:
-            self.direction = DOWN
+        if action == self.LEFT and self.direction != self.RIGHT:
+            self.direction = self.LEFT
+        elif action == self.RIGHT and self.direction != self.LEFT:
+            self.direction = self.RIGHT
+        elif action == self.UP and self.direction != self.DOWN:
+            self.direction = self.UP
+        elif action == self.DOWN and self.direction != self.UP:
+            self.direction = self.DOWN
         else:
             pass
 
-    def update_snake_position(self):
+    def update_screen_elements(self):
         self.update_snake_tail_position()
         self.update_snake_head_position()
+        self.update_element_colors()
 
     def update_snake_head_position(self):
-        if self.direction == UP:
+        if self.direction == self.UP:
             self.snake[0] = (self.snake[0][0], self.snake[0][1] - 10)
-        elif self.direction == DOWN:
+        elif self.direction == self.DOWN:
             self.snake[0] = (self.snake[0][0], self.snake[0][1] + 10)
-        elif self.direction == RIGHT:
+        elif self.direction == self.RIGHT:
             self.snake[0] = (self.snake[0][0] + 10, self.snake[0][1])
-        elif self.direction == LEFT:
+        elif self.direction == self.LEFT:
             self.snake[0] = (self.snake[0][0] - 10, self.snake[0][1])
         else:
             pass
@@ -59,13 +69,11 @@ class SnakeGame():
         for i in range(len(self.snake) - 1, 0, -1):
             self.snake[i] = (self.snake[i-1][0], self.snake[i-1][1])
 
-    def update_screen_elements(self):
+    def update_element_colors(self):
         self.screen.blit(self.apple, self.apple_pos)
         self.screen.blit(self.head_skin, self.snake[0])
         for i in range(1, len(self.snake)):
             self.screen.blit(self.tail_skin, self.snake[i])
-
-        pygame.display.update()
 
     def update_game_state(self):
         if self.has_apple_collision():
@@ -96,14 +104,15 @@ class SnakeGame():
         return (len(self.snake) != len(set(self.snake)))
 
     def step(self, action):
-        self.clock.tick(10)
         self.screen.fill(self.COLOR_BLACK)
 
         self.execute_action(action)
-        self.update_snake_position()
         self.update_screen_elements()
         self.update_game_state()
 
+        pygame.display.flip()
+
+        self.clock.tick(10)
         return self.current_frame, self.current_reward, self.game_over, self.score
 
     def get_frame(self):
@@ -111,25 +120,7 @@ class SnakeGame():
 		
     def quit_game(self):
         pygame.quit()
-		
-    def reset(self):
-        self.screen = pygame.display.set_mode((self.GAME_WIDTH, self.GAME_HEIGHT))
-        self.clock = pygame.time.Clock()
-		
-        self.score = 0
-        self.game_over = False
-        self.current_reward = -0.01
-        self.direction = LEFT
-		
-        self.snake = [(50, 50), (60, 50), (70,50)]
-        self.head_skin = pygame.Surface((10,10))
-        self.head_skin.fill(self.COLOR_GREEN)
-        self.tail_skin = pygame.Surface((10,10))
-        self.tail_skin.fill(self.COLOR_WHITE)
-        
-        self.apple_pos = self.generate_random_position()
-        self.apple = pygame.Surface((10,10))
-        self.apple.fill(self.COLOR_RED)
+
 		
 if __name__ == '__main__':
     game = SnakeGame()
@@ -142,5 +133,8 @@ if __name__ == '__main__':
         game_over = False
         while not game_over:
             action = np.random.randint(0, 5, size=1)[0]
-            input_tp1, current_reward, game_over, score = game.step(action)
-            print(action, current_reward, game_over, score)
+            input_tp1, reward, game_over, score = game.step(action)
+            print(f"Action: {action}",
+                f"Reward: {reward}",
+                f"Game Over: {game_over}",
+                f"Score: {score}")

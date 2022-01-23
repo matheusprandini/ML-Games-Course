@@ -6,20 +6,13 @@ import pygame
 import random
 import os
 
-x = 1
-y = 40
-os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (x,y)
+from Game import Game
 
-class CatchGame(object):
+
+class CatchGame(Game):
     
     def __init__(self):
-        pygame.init()
-        pygame.key.set_repeat(10, 100)
-
-        self.COLOR_WHITE = (255, 255, 255)
-        self.COLOR_BLACK = (0, 0, 0)
-        self.GAME_WIDTH = 400
-        self.GAME_HEIGHT = 400
+        super().__init__('Catch')
         self.BALL_WIDTH = 20
         self.BALL_HEIGHT = 20
         self.PADDLE_WIDTH = 50
@@ -31,63 +24,42 @@ class CatchGame(object):
         
 
     def reset(self):
-        self.screen = pygame.display.set_mode(
-                (self.GAME_WIDTH, self.GAME_HEIGHT))
-        self.clock = pygame.time.Clock()
-
-        self.current_frame = self.get_frame()
-        self.game_over = False
+        super().reset()
         self.paddle_x = self.GAME_WIDTH // 2
-        self.reward = 0
         self.ball_x = random.randint(0, self.GAME_WIDTH-20)
         self.ball_y = self.GAME_CEILING
 
-    def step(self, action):
-        pygame.event.pump()
-        self.screen.fill(self.COLOR_BLACK)
-
-        self.execute_action(action)
-        paddle_position = self.update_paddle_position()
-        ball_position = self.update_ball_position()
-        self.update_game_state(ball_position, paddle_position)
-
-        pygame.display.flip()
-
-        self.clock.tick(30)
-        return self.current_frame, self.reward, self.game_over
-
     def execute_action(self, action):
-        if action == 0:
+        if action == self.LEFT:
             self.paddle_x -= self.PADDLE_VELOCITY
             if self.paddle_x < 0:
                 self.paddle_x = self.PADDLE_VELOCITY
-        elif action == 1:
+        elif action == self.RIGHT:
             self.paddle_x += self.PADDLE_VELOCITY
             if self.paddle_x > self.GAME_WIDTH - self.PADDLE_WIDTH:
                 self.paddle_x = self.GAME_WIDTH - self.PADDLE_WIDTH - self.PADDLE_VELOCITY
         else:
             pass
 
-    def update_ball_position(self):
+    def update_screen_elements(self):
         self.ball_y += self.BALL_VELOCITY
-        return pygame.draw.rect(self.screen, self.COLOR_WHITE,
+        self.ball_position = pygame.draw.rect(self.screen, self.COLOR_WHITE,
                                 pygame.Rect(self.ball_x, self.ball_y,
                                             self.BALL_WIDTH,
                                             self.BALL_HEIGHT))
-
-    def update_paddle_position(self):
-        return pygame.draw.rect(self.screen, self.COLOR_WHITE,
+        self.paddle_position = pygame.draw.rect(self.screen, self.COLOR_WHITE,
                                   pygame.Rect(self.paddle_x, 
                                               self.GAME_FLOOR,
                                               self.PADDLE_WIDTH,
                                               self.PADDLE_HEIGHT))
 
-    def update_game_state(self, ball_position, paddle_position):
+    def update_game_state(self):
         if self.has_colision():
-            if ball_position.colliderect(paddle_position):
-                self.reward = 1
+            if self.catch_ball():
+                self.current_reward = 1
+                self.score = 10
             else:
-                self.reward = -1
+                self.current_reward = -1
 
             self.ball_x = random.randint(0, self.GAME_WIDTH)
             self.ball_y = self.GAME_CEILING
@@ -97,20 +69,23 @@ class CatchGame(object):
     def has_colision(self):
         return self.ball_y >= self.GAME_FLOOR - self.BALL_WIDTH // 2
 
-    def get_frame(self):
-        return pygame.surfarray.array2d(self.screen)
-    
+    def catch_ball(self):
+        return self.ball_position.colliderect(self.paddle_position)
+
 
 if __name__ == "__main__":   
     game = CatchGame()
 
-    NUM_EPOCHS = 10
+    NUM_EPOCHS = 2
     for e in range(NUM_EPOCHS):
-        print("Epoch: {:d}".format(e))
+        print(f"Epoch: {e}")
         game.reset()
         input_t = game.get_frame()
         game_over = False
         while not game_over:
             action = np.random.randint(0, 3, size=1)[0]
-            input_tp1, reward, game_over = game.step(action)
-            print(action, reward, game_over)
+            input_tp1, reward, game_over, score = game.step(action)
+            print(f"Action: {action}",
+                f"Reward: {reward}",
+                f"Game Over: {game_over}",
+                f"Score: {score}")

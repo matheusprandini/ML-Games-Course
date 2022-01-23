@@ -1,5 +1,6 @@
 import pygame, random
 import numpy as np
+import os
 
 from pygame.locals import *
 
@@ -9,7 +10,11 @@ from Game import Game
 class SnakeGame(Game):
 
     def __init__(self):
-        super().__init__('Snake', 200, 200)
+        super().__init__(
+            os.getenv('SNAKE_NAME', 'Snake Game'),
+            int(os.getenv('SNAKE_GRID_WIDTH', 200)),
+            int(os.getenv('SNAKE_GRID_HEIGHT', 200))
+        )
 
     def reset(self):
         super().reset()

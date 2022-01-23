@@ -1,6 +1,7 @@
 import numpy as np
 import pygame
 import random
+import os
 
 from Game import Game
 
@@ -8,7 +9,11 @@ from Game import Game
 class CatchGame(Game):
     
     def __init__(self):
-        super().__init__('Catch')
+        super().__init__(
+            os.getenv('CATCH_NAME', 'Catch Game'),
+            int(os.getenv('CATCH_GRID_WIDTH', 400)),
+            int(os.getenv('CATCH_GRID_HEIGHT', 400))
+        )
         self.BALL_WIDTH = 20
         self.BALL_HEIGHT = 20
         self.PADDLE_WIDTH = 50

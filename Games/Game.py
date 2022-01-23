@@ -3,8 +3,8 @@ import pygame
 import os
 
 
-x = 1
-y = 40
+x = int(os.getenv('PYGAME_X_POSITION', 400))
+y = int(os.getenv('PYGAME_Y_POSITION', 200))
 os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (x,y)
 
 class Game(object):
@@ -14,7 +14,7 @@ class Game(object):
     UP = 2
     DOWN = 3
 
-    def __init__(self, name, grid_width=400, grid_height=400):
+    def __init__(self, name, grid_width, grid_height):
         pygame.init()
         pygame.display.set_caption(name)
         pygame.key.set_repeat(10, 100)

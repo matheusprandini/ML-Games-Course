@@ -4,7 +4,7 @@ import os
 
 from pygame.locals import *
 
-from Game import Game
+from .Game import Game
 
 
 class SnakeGame(Game):

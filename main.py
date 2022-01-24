@@ -1,5 +1,6 @@
 import os
 
+from Games.Game import Game
 from Games.CatchGame import CatchGame
 from Games.SnakeGame import SnakeGame
 from Agents.RandomAgent import RandomAgent
@@ -15,7 +16,7 @@ agents_translator = {
 }
 
 if __name__ == '__main__':
-    game = games_translator[os.getenv('GAME', 'Catch')]
+    game: Game = games_translator[os.getenv('GAME', 'Catch')]
     agent = agents_translator[os.getenv('AGENT', 'Random')]
     num_tries = int(os.getenv('NUM_TRIES', 10))
 

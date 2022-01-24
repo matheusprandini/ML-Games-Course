@@ -4,6 +4,7 @@ from Games.Game import Game
 from Games.CatchGame import CatchGame
 from Games.SnakeGame import SnakeGame
 from Agents.RandomAgent import RandomAgent
+from Agents.HumanAgent import HumanAgent
 
 
 games_translator = {
@@ -12,7 +13,8 @@ games_translator = {
 }
 
 agents_translator = {
-    'Random': RandomAgent()
+    'Random': RandomAgent(),
+    'Human': HumanAgent()
 }
 
 if __name__ == '__main__':
@@ -28,7 +30,4 @@ if __name__ == '__main__':
         while not game_over:
             action = agent.choose_action(frame)
             frame, reward, game_over, score = game.step(action)
-            print(f"Action: {action}",
-                f"Reward: {reward}",
-                f"Game Over: {game_over}",
-                f"Score: {score}")
+            print(f"Action: {action} - Reward: {reward} - Game Over: {game_over} - Score: {score}")

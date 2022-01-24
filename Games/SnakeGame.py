@@ -100,21 +100,3 @@ class SnakeGame(Game):
     
     def has_head_and_tail_colision(self):
         return (len(self.snake) != len(set(self.snake)))
-
-
-if __name__ == '__main__':
-    game = SnakeGame()
-
-    NUM_EPOCHS = 2
-    for e in range(NUM_EPOCHS):
-        print("Epoch: {:d}".format(e))
-        game.reset()
-        input_t = game.get_frame()
-        game_over = False
-        while not game_over:
-            action = np.random.randint(0, 5, size=1)[0]
-            input_tp1, reward, game_over, score = game.step(action)
-            print(f"Action: {action}",
-                f"Reward: {reward}",
-                f"Game Over: {game_over}",
-                f"Score: {score}")

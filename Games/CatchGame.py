@@ -72,21 +72,3 @@ class CatchGame(Game):
 
     def catch_ball(self):
         return self.ball_position.colliderect(self.paddle_position)
-
-
-if __name__ == "__main__":   
-    game = CatchGame()
-
-    NUM_EPOCHS = 2
-    for e in range(NUM_EPOCHS):
-        print(f"Epoch: {e}")
-        game.reset()
-        input_t = game.get_frame()
-        game_over = False
-        while not game_over:
-            action = np.random.randint(0, 3, size=1)[0]
-            input_tp1, reward, game_over, score = game.step(action)
-            print(f"Action: {action}",
-                f"Reward: {reward}",
-                f"Game Over: {game_over}",
-                f"Score: {score}")

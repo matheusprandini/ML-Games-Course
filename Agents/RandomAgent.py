@@ -1,14 +1,14 @@
 import os
 
 import numpy as np
-from Players import Player
+from Agents import Agent
 
 
-class RandomPlayer(Player):
+class RandomAgent(Agent):
 
     def __init__(self):
         super().__init__(
-            name=os.getenv('PLAYER_NAME', 'Random Player')
+            name=os.getenv('PLAYER_NAME', 'Random Agent')
         )
 
     def choose_action(self, _):

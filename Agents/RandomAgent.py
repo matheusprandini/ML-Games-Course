@@ -8,7 +8,7 @@ class RandomAgent(Agent):
 
     def __init__(self):
         super().__init__(
-            name=os.getenv('PLAYER_NAME', 'Random Agent')
+            name=os.getenv('AGENT_NAME', 'Random Agent')
         )
 
     def choose_action(self, _):

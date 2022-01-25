@@ -4,6 +4,7 @@ import random
 import os
 
 from games.game import Game
+from enums.action import Action
 
 
 class CatchGame(Game):
@@ -31,11 +32,11 @@ class CatchGame(Game):
         self.ball_y = self.GAME_CEILING
 
     def execute_action(self, action):
-        if action == self.LEFT:
+        if action == Action.LEFT.value:
             self.paddle_x -= self.PADDLE_VELOCITY
             if self.paddle_x < 0:
                 self.paddle_x = self.PADDLE_VELOCITY
-        elif action == self.RIGHT:
+        elif action == Action.RIGHT.value:
             self.paddle_x += self.PADDLE_VELOCITY
             if self.paddle_x > self.GAME_WIDTH - self.PADDLE_WIDTH:
                 self.paddle_x = self.GAME_WIDTH - self.PADDLE_WIDTH - self.PADDLE_VELOCITY

@@ -4,6 +4,8 @@ import numpy as np
 
 from pathlib import Path
 
+from enums.action import Action
+
 logging.basicConfig()
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -24,7 +26,7 @@ class DataCollector():
                 action = agent.choose_action(current_frame)
                 cls.data.append([current_frame, action])
                 current_frame, _, game_over, _ = game.step(action)
-                logger.info('Action: {action}')
+                logger.info(f'Action: {Action(action).name}')
                 
         cls.save_data()
 

@@ -9,11 +9,6 @@ os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (x,y)
 
 class Game(object):
 
-    LEFT = 0
-    RIGHT = 1
-    UP = 2
-    DOWN = 3
-
     def __init__(self, name, grid_width, grid_height):
         pygame.init()
         pygame.display.set_caption(name)

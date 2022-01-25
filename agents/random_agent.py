@@ -13,4 +13,4 @@ class RandomAgent(Agent):
         )
 
     def choose_action(self, _):
-        return np.random.randint(0, len(action), size=1)[0]
+        return np.random.randint(0, len(Action), size=1)[0]

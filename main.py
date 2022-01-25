@@ -1,5 +1,6 @@
 import logging
 import os
+from data.data_collector import DataCollector
 
 from games.game import Game
 from games.catch_game import CatchGame
@@ -37,6 +38,7 @@ def play(game, agent, num_tries):
 
 def collect_data(game, agent, num_tries):
     logger.info(f'----- Collecting Data -----')
+    DataCollector.collect(game, agent, num_tries)
 
 def process():
     game: Game = games_translator[os.getenv('GAME', 'Catch')]

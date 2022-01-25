@@ -4,7 +4,9 @@ import numpy as np
 
 from pathlib import Path
 
+logging.basicConfig()
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 class DataCollector():
 
@@ -22,13 +24,13 @@ class DataCollector():
                 action = agent.choose_action(current_frame)
                 cls.data.append([current_frame, action])
                 current_frame, _, game_over, _ = game.step(action)
-
-            logger.info(f"Action: {action}")
-
+                logger.info('Action: {action}')
+                
         cls.save_data()
 
     @classmethod
     def save_data(cls):
+        logger.info('Saving Data')
         cls.create_directory()
         with open(cls.filepath, 'wb') as output_file:
             np.save(output_file, cls.data)

@@ -22,11 +22,7 @@ agents_translator = {
     'Human': HumanAgent()
 }
 
-def process():
-    game: Game = games_translator[os.getenv('GAME', 'Catch')]
-    agent = agents_translator[os.getenv('AGENT', 'Random')]
-    num_tries = int(os.getenv('NUM_TRIES', 10))
-
+def play(game, agent, num_tries):
     logger.info(f'----- Starting Execution -----')
 
     for i in range(num_tries):
@@ -38,5 +34,19 @@ def process():
             action = agent.choose_action(frame)
             frame, reward, game_over, score = game.step(action)
             logger.info(f"Action: {action} - Reward: {reward} - Game Over: {game_over} - Score: {score}")
+
+def collect_data(game, agent, num_tries):
+    logger.info(f'----- Collecting Data -----')
+
+def process():
+    game: Game = games_translator[os.getenv('GAME', 'Catch')]
+    agent = agents_translator[os.getenv('AGENT', 'Random')]
+    num_tries = int(os.getenv('NUM_TRIES', 10))
+    type = os.getenv('TYPE', 'PLAY')
+
+    if type == 'PLAY':
+        play(game, agent, num_tries)
+    elif type == 'COLLECT':
+        collect_data(game, agent, num_tries)
 
 process()

@@ -3,7 +3,7 @@ import pygame
 import random
 import os
 
-from Game import Game
+from games.game import Game
 
 
 class CatchGame(Game):
@@ -14,14 +14,14 @@ class CatchGame(Game):
             int(os.getenv('CATCH_GRID_WIDTH', 400)),
             int(os.getenv('CATCH_GRID_HEIGHT', 400))
         )
+        self.BALL_VELOCITY = int(os.getenv('CATCH_BALL_VELOCITY', 10))
         self.BALL_WIDTH = 20
         self.BALL_HEIGHT = 20
         self.PADDLE_WIDTH = 50
         self.PADDLE_HEIGHT = 10
+        self.PADDLE_VELOCITY = 20
         self.GAME_FLOOR = 350
         self.GAME_CEILING = 10
-        self.BALL_VELOCITY = 10
-        self.PADDLE_VELOCITY = 20
         
 
     def reset(self):
@@ -72,21 +72,3 @@ class CatchGame(Game):
 
     def catch_ball(self):
         return self.ball_position.colliderect(self.paddle_position)
-
-
-if __name__ == "__main__":   
-    game = CatchGame()
-
-    NUM_EPOCHS = 2
-    for e in range(NUM_EPOCHS):
-        print(f"Epoch: {e}")
-        game.reset()
-        input_t = game.get_frame()
-        game_over = False
-        while not game_over:
-            action = np.random.randint(0, 3, size=1)[0]
-            input_tp1, reward, game_over, score = game.step(action)
-            print(f"Action: {action}",
-                f"Reward: {reward}",
-                f"Game Over: {game_over}",
-                f"Score: {score}")

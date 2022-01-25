@@ -19,6 +19,7 @@ class Game(object):
         pygame.display.set_caption(name)
         pygame.key.set_repeat(10, 100)
 
+        self.name = name
         self.COLOR_WHITE = (255, 255, 255)
         self.COLOR_BLACK = (0, 0, 0)
         self.COLOR_GREEN = (25, 255, 0)

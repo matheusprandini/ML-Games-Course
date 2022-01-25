@@ -1,10 +1,9 @@
 import pygame, random
-import numpy as np
 import os
 
 from pygame.locals import *
 
-from Game import Game
+from games.game import Game
 
 
 class SnakeGame(Game):
@@ -72,6 +71,7 @@ class SnakeGame(Game):
 
     def update_game_state(self):
         if self.has_apple_collision():
+            print("aaa")
             self.apple_pos = self.generate_random_position()
             self.snake.append((0,0))
             self.score += 10
@@ -84,34 +84,18 @@ class SnakeGame(Game):
         self.current_frame = self.get_frame()
 
     def generate_random_position(self):
-        x = random.randint(0,self.GAME_WIDTH - 10)
-        y = random.randint(0,self.GAME_HEIGHT - 10)
-        return (x//10 * 10, y//10 * 10)
+        while True:
+            x = random.randint(0,self.GAME_WIDTH - 10)
+            y = random.randint(0,self.GAME_HEIGHT - 10)
+            if (x, y) not in self.snake:
+                return (x//10 * 10, y//10 * 10)
 
     def has_apple_collision(self):
-        return ((self.snake[0] == self.apple_pos[0]) and 
-            (self.snake[1] == self.apple_pos[1]))
+        return ((self.snake[0][0] == self.apple_pos[0]) and 
+            (self.snake[0][1] == self.apple_pos[1]))
 
     def has_wall_colision(self):
         return (self.snake[0][0] < 0 or self.snake[0][1] < 0 or self.snake[0][0] > self.GAME_WIDTH - 10 or self.snake[0][1] > self.GAME_HEIGHT - 10)
     
     def has_head_and_tail_colision(self):
         return (len(self.snake) != len(set(self.snake)))
-
-
-if __name__ == '__main__':
-    game = SnakeGame()
-
-    NUM_EPOCHS = 2
-    for e in range(NUM_EPOCHS):
-        print("Epoch: {:d}".format(e))
-        game.reset()
-        input_t = game.get_frame()
-        game_over = False
-        while not game_over:
-            action = np.random.randint(0, 5, size=1)[0]
-            input_tp1, reward, game_over, score = game.step(action)
-            print(f"Action: {action}",
-                f"Reward: {reward}",
-                f"Game Over: {game_over}",
-                f"Score: {score}")

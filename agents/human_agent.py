@@ -1,3 +1,4 @@
+import logging
 import os
 
 import pygame
@@ -13,6 +14,8 @@ class HumanAgent(Agent):
         )
 
     def choose_action(self, _):
+        logger = logging.getLogger('random_agent')
+        logger.info("Açõesss")
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()

@@ -1,5 +1,4 @@
 import abc
-import os
 
 
 class Agent(object):

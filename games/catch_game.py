@@ -3,7 +3,7 @@ import pygame
 import random
 import os
 
-from .Game import Game
+from games.game import Game
 
 
 class CatchGame(Game):

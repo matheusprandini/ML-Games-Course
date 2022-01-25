@@ -2,7 +2,7 @@ import os
 
 import pygame
 from pygame.locals import *
-from .Agent import Agent
+from agents.agent import Agent
 
 
 class HumanAgent(Agent):

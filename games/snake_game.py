@@ -1,10 +1,9 @@
 import pygame, random
-import numpy as np
 import os
 
 from pygame.locals import *
 
-from .Game import Game
+from games.game import Game
 
 
 class SnakeGame(Game):

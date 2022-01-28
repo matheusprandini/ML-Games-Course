@@ -6,6 +6,7 @@ from pygame.locals import *
 from games.game import Game
 from enums.action import Action
 
+
 class SnakeGame(Game):
 
     def __init__(self):
@@ -18,7 +19,7 @@ class SnakeGame(Game):
     def reset(self):
         super().reset()
 
-        self.direction = Action.LEFT
+        self.direction = Action.LEFT.value
 		
         self.snake = [(50, 50), (60, 50), (70,50)]
         self.head_skin = pygame.Surface((10,10))
@@ -71,7 +72,6 @@ class SnakeGame(Game):
 
     def update_game_state(self):
         if self.has_apple_collision():
-            print("aaa")
             self.apple_pos = self.generate_random_position()
             self.snake.append((0,0))
             self.score += 10
@@ -87,8 +87,9 @@ class SnakeGame(Game):
         while True:
             x = random.randint(0,self.GAME_WIDTH - 10)
             y = random.randint(0,self.GAME_HEIGHT - 10)
-            if (x, y) not in self.snake:
-                return (x//10 * 10, y//10 * 10)
+            adjusted_new_position = (x//10 * 10, y//10 * 10)
+            if adjusted_new_position not in self.snake:
+                return adjusted_new_position
 
     def has_apple_collision(self):
         return ((self.snake[0][0] == self.apple_pos[0]) and 

@@ -56,7 +56,4 @@ class Game(object):
         raise NotImplementedError
 
     def get_frame(self):
-        return pygame.surfarray.array3d(self.screen)
-
-    def quit_game(self):
-        pygame.quit()
+        return pygame.surfarray.array3d(self.screen).swapaxes(0,1)

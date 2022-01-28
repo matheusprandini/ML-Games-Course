@@ -6,6 +6,7 @@ import numpy as np
 from pathlib import Path
 
 from enums.action import Action
+from enums.color_mode import ColorMode
 
 logging.basicConfig()
 logger = logging.getLogger(__name__)
@@ -17,7 +18,6 @@ class DataCollector():
     mode = "RGB"
     shape = (100, 100)
     data = []
-    a = 0
 
     @classmethod
     def collect(cls, game, agent, number_tries):
@@ -38,12 +38,9 @@ class DataCollector():
 
     @classmethod
     def preprocess_frame(cls, frame):
-        GRAYSCALE_MODE = "GRAYSCALE"
-        RGB_MODE = "RGB"
-
-        if cls.mode.upper() == RGB_MODE:
+        if cls.mode.upper() == ColorMode.RGB:
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        elif cls.mode.upper() == GRAYSCALE_MODE:
+        elif cls.mode.upper() == ColorMode.GRAYSCALE:
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         frame = cv2.resize(frame, cls.shape)
         return frame

@@ -22,19 +22,23 @@ class DataCollector():
     @classmethod
     def collect(cls, game, agent, number_tries):
         for _ in range(number_tries):
-            game_over = False
-            game.reset()
-            action = Action.NOTHING.value
+            current_frame, *_ = cls.start_game(game)
 
+            game_over = False
             while not game_over:
-                current_frame, _, game_over, score = game.step(action)
                 preprocessed_current_frame = cls.preprocess_frame(current_frame) 
                 action = agent.choose_action(preprocessed_current_frame)
-                cls.data.append([preprocessed_current_frame, action])
-                logger.info(f'Action: {Action(action).name}')
+                current_frame, environment_action, _, game_over, score = game.step(action)
+                cls.data.append([preprocessed_current_frame, environment_action])
+                logger.info(f'Action: {Action(action).name} - Environment Action: {Action(environment_action).name}')
             logger.info(f'Game Over - Score: {score}')
 
         cls.save_data()
+
+    @classmethod
+    def start_game(cls, game):
+        game.reset()
+        return game.step(Action.NOTHING.value)
 
     @classmethod
     def preprocess_frame(cls, frame):

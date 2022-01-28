@@ -42,6 +42,7 @@ class CatchGame(Game):
                 self.paddle_x = self.GAME_WIDTH - self.PADDLE_WIDTH - self.PADDLE_VELOCITY
         else:
             pass
+        self.executed_action = action
 
     def update_screen_elements(self):
         self.ball_y += self.BALL_VELOCITY

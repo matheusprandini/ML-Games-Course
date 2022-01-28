@@ -41,7 +41,7 @@ class Game(object):
         pygame.display.update()
         self.clock.tick(10)
 
-        return self.current_frame, self.current_reward, self.game_over, self.score
+        return self.current_frame, self.executed_action, self.current_reward, self.game_over, self.score
 
     @abc.abstractmethod
     def execute_action(self):

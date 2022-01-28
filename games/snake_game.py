@@ -42,6 +42,7 @@ class SnakeGame(Game):
             self.direction = Action.DOWN.value
         else:
             pass
+        self.executed_action = self.direction
 
     def update_screen_elements(self):
         self.update_snake_tail_position()

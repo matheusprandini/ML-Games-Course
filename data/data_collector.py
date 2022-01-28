@@ -1,5 +1,6 @@
 import logging
 import os
+import cv2
 import numpy as np
 
 from pathlib import Path
@@ -13,22 +14,39 @@ logger.setLevel(logging.DEBUG)
 class DataCollector():
 
     filepath = os.getenv('COLLECTED_DATA_PATH', 'extracted_data/data.npy')
+    mode = "RGB"
+    shape = (100, 100)
     data = []
+    a = 0
 
     @classmethod
     def collect(cls, game, agent, number_tries):
         for _ in range(number_tries):
             game_over = False
             game.reset()
-            current_frame = game.get_frame()
+            action = Action.NOTHING.value
 
             while not game_over:
-                action = agent.choose_action(current_frame)
-                cls.data.append([current_frame, action])
-                current_frame, _, game_over, _ = game.step(action)
+                current_frame, _, game_over, score = game.step(action)
+                preprocessed_current_frame = cls.preprocess_frame(current_frame) 
+                action = agent.choose_action(preprocessed_current_frame)
+                cls.data.append([preprocessed_current_frame, action])
                 logger.info(f'Action: {Action(action).name}')
-                
+            logger.info(f'Game Over - Score: {score}')
+
         cls.save_data()
+
+    @classmethod
+    def preprocess_frame(cls, frame):
+        GRAYSCALE_MODE = "GRAYSCALE"
+        RGB_MODE = "RGB"
+
+        if cls.mode.upper() == RGB_MODE:
+            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        elif cls.mode.upper() == GRAYSCALE_MODE:
+            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        frame = cv2.resize(frame, cls.shape)
+        return frame
 
     @classmethod
     def save_data(cls):

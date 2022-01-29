@@ -16,7 +16,10 @@ class DataCollector():
 
     filepath = os.getenv('COLLECTED_DATA_PATH', 'extracted_data/data.npy')
     color_mode = os.getenv('COLOR_MODE', 'RGB')
-    frame_size = os.getenv('FRAME_SIZE', (100, 100))
+    frame_size = (
+        int(os.getenv('FRAME_HEIGHT', 100)),
+        int(os.getenv('FRAME_WIDTH', 100))
+    )
     data = []
 
     @classmethod
@@ -46,7 +49,7 @@ class DataCollector():
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         elif cls.color_mode.upper() == ColorMode.GRAYSCALE.value:
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        frame = cv2.resize(frame, cls.shape)
+        frame = cv2.resize(frame, cls.frame_size)
         return frame
 
     @classmethod

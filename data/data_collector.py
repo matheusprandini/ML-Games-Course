@@ -24,6 +24,7 @@ class DataCollector():
 
     @classmethod
     def collect(cls, game, agent, number_tries):
+        scores = []
         for i in range(number_tries):
             current_frame, *_ = cls.start_game(game)
 
@@ -34,8 +35,9 @@ class DataCollector():
                 current_frame, environment_action, _, game_over, score = game.step(action)
                 cls.data.append([preprocessed_current_frame, environment_action])
                 logger.debug(f'Action: {Action(action).name} - Environment Action: {Action(environment_action).name}')
-            logger.info(f'Game {i} - Score: {score}')
-
+            logger.info(f'Game {i+1} - Score: {score}')
+            scores.append(score)
+        cls.generate_stats(scores)
         cls.save_data()
 
     @classmethod
@@ -75,3 +77,11 @@ class DataCollector():
     def create_directory(cls):
         directory = Path(cls.filepath).parent
         directory.mkdir(parents=True, exist_ok=True) 
+
+    @classmethod
+    def generate_stats(cls, scores):
+        scores = np.array(scores)
+        logger.info(
+            f'Total Score: {np.sum(scores)} - Max Score: {np.max(scores)}'
+            f' - Min Score: {np.min(scores)} - Mean Score: {np.mean(scores)} - Std Score: {np.std(scores)}'
+        )

@@ -11,7 +11,7 @@ from agents.human_agent import HumanAgent
 
 logging.basicConfig()
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+logger.setLevel(os.getenv('LOG_LEVEL', 'INFO'))
 
 games_translator = {
     'Catch': CatchGame(),

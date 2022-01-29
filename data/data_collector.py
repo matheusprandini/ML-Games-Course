@@ -10,7 +10,7 @@ from enums.color_mode import ColorMode
 
 logging.basicConfig()
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+logger.setLevel(os.getenv('LOG_LEVEL', 'INFO'))
 
 class DataCollector():
 
@@ -24,7 +24,7 @@ class DataCollector():
 
     @classmethod
     def collect(cls, game, agent, number_tries):
-        for _ in range(number_tries):
+        for i in range(number_tries):
             current_frame, *_ = cls.start_game(game)
 
             game_over = False
@@ -33,8 +33,8 @@ class DataCollector():
                 action = agent.choose_action(preprocessed_current_frame)
                 current_frame, environment_action, _, game_over, score = game.step(action)
                 cls.data.append([preprocessed_current_frame, environment_action])
-                logger.info(f'Action: {Action(action).name} - Environment Action: {Action(environment_action).name}')
-            logger.info(f'Game Over - Score: {score}')
+                logger.debug(f'Action: {Action(action).name} - Environment Action: {Action(environment_action).name}')
+            logger.info(f'Game {i} - Score: {score}')
 
         cls.save_data()
 
@@ -45,12 +45,24 @@ class DataCollector():
 
     @classmethod
     def preprocess_frame(cls, frame):
+        preprocessed_frame = cls.convert_frame_color(frame)
+        preprocessed_frame = cls.resize_frame(preprocessed_frame)
+        return preprocessed_frame
+
+    @classmethod
+    def convert_frame_color(cls, frame):
+        logger.debug(f'Converting Frame Color to {cls.color_mode}')
         if cls.color_mode.upper() == ColorMode.RGB.value:
-            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            return cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         elif cls.color_mode.upper() == ColorMode.GRAYSCALE.value:
-            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        frame = cv2.resize(frame, cls.frame_size)
-        return frame
+            return cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        else:
+            return frame
+
+    @classmethod
+    def resize_frame(cls, frame):
+        logger.debug(f'Resizing Frame to {cls.frame_size}')
+        return cv2.resize(frame, cls.frame_size)
 
     @classmethod
     def save_data(cls):

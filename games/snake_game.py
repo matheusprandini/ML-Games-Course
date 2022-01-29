@@ -4,6 +4,7 @@ import os
 from pygame.locals import *
 
 from games.game import Game
+from enums.action import Action
 
 
 class SnakeGame(Game):
@@ -18,7 +19,7 @@ class SnakeGame(Game):
     def reset(self):
         super().reset()
 
-        self.direction = self.LEFT
+        self.direction = Action.LEFT.value
 		
         self.snake = [(50, 50), (60, 50), (70,50)]
         self.head_skin = pygame.Surface((10,10))
@@ -31,16 +32,17 @@ class SnakeGame(Game):
         self.apple.fill(self.COLOR_RED)
 
     def execute_action(self, action):
-        if action == self.LEFT and self.direction != self.RIGHT:
-            self.direction = self.LEFT
-        elif action == self.RIGHT and self.direction != self.LEFT:
-            self.direction = self.RIGHT
-        elif action == self.UP and self.direction != self.DOWN:
-            self.direction = self.UP
-        elif action == self.DOWN and self.direction != self.UP:
-            self.direction = self.DOWN
+        if action == Action.LEFT.value and self.direction != Action.RIGHT.value:
+            self.direction = Action.LEFT.value
+        elif action == Action.RIGHT.value and self.direction != Action.LEFT.value:
+            self.direction = Action.RIGHT.value
+        elif action == Action.UP.value and self.direction != Action.DOWN.value:
+            self.direction = Action.UP.value
+        elif action == Action.DOWN.value and self.direction != Action.UP.value:
+            self.direction = Action.DOWN.value
         else:
             pass
+        self.environment_action = self.direction
 
     def update_screen_elements(self):
         self.update_snake_tail_position()
@@ -48,13 +50,13 @@ class SnakeGame(Game):
         self.update_element_colors()
 
     def update_snake_head_position(self):
-        if self.direction == self.UP:
+        if self.direction == Action.UP.value:
             self.snake[0] = (self.snake[0][0], self.snake[0][1] - 10)
-        elif self.direction == self.DOWN:
+        elif self.direction == Action.DOWN.value:
             self.snake[0] = (self.snake[0][0], self.snake[0][1] + 10)
-        elif self.direction == self.RIGHT:
+        elif self.direction == Action.RIGHT.value:
             self.snake[0] = (self.snake[0][0] + 10, self.snake[0][1])
-        elif self.direction == self.LEFT:
+        elif self.direction == Action.LEFT.value:
             self.snake[0] = (self.snake[0][0] - 10, self.snake[0][1])
         else:
             pass
@@ -71,7 +73,6 @@ class SnakeGame(Game):
 
     def update_game_state(self):
         if self.has_apple_collision():
-            print("aaa")
             self.apple_pos = self.generate_random_position()
             self.snake.append((0,0))
             self.score += 10
@@ -87,8 +88,9 @@ class SnakeGame(Game):
         while True:
             x = random.randint(0,self.GAME_WIDTH - 10)
             y = random.randint(0,self.GAME_HEIGHT - 10)
-            if (x, y) not in self.snake:
-                return (x//10 * 10, y//10 * 10)
+            adjusted_new_position = (x//10 * 10, y//10 * 10)
+            if adjusted_new_position not in self.snake:
+                return adjusted_new_position
 
     def has_apple_collision(self):
         return ((self.snake[0][0] == self.apple_pos[0]) and 

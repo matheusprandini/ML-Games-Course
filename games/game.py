@@ -9,11 +9,6 @@ os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (x,y)
 
 class Game(object):
 
-    LEFT = 0
-    RIGHT = 1
-    UP = 2
-    DOWN = 3
-
     def __init__(self, name, grid_width, grid_height):
         pygame.init()
         pygame.display.set_caption(name)
@@ -46,7 +41,7 @@ class Game(object):
         pygame.display.update()
         self.clock.tick(10)
 
-        return self.current_frame, self.current_reward, self.game_over, self.score
+        return self.current_frame, self.environment_action, self.current_reward, self.game_over, self.score
 
     @abc.abstractmethod
     def execute_action(self):
@@ -61,7 +56,4 @@ class Game(object):
         raise NotImplementedError
 
     def get_frame(self):
-        return pygame.surfarray.array3d(self.screen)
-
-    def quit_game(self):
-        pygame.quit()
+        return pygame.surfarray.array3d(self.screen).swapaxes(0,1)

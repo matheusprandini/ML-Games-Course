@@ -2,7 +2,6 @@ import logging
 import os
 import numpy as np
 
-from pathlib import Path
 from data.data_handler import DataHandler
 
 from enums.action import Action
@@ -14,11 +13,6 @@ logger.setLevel(os.getenv('LOG_LEVEL', 'INFO'))
 class DataCollector():
 
     filepath = os.getenv('COLLECTED_DATA_PATH', 'extracted_data/data.npy')
-    color_mode = os.getenv('COLOR_MODE', 'RGB')
-    frame_size = (
-        int(os.getenv('FRAME_HEIGHT', 100)),
-        int(os.getenv('FRAME_WIDTH', 100))
-    )
     data = []
 
     @classmethod
@@ -37,24 +31,12 @@ class DataCollector():
             logger.info(f'Game {i+1} - Score: {score}')
             scores.append(score)
         cls.generate_stats(scores)
-        cls.save_data()
+        DataHandler.save_data(cls.filepath, cls.data)
 
     @classmethod
     def start_game(cls, game):
         game.reset()
         return game.step(Action.NOTHING.value)
-
-    @classmethod
-    def save_data(cls):
-        logger.info('Saving Data')
-        cls.create_directory()
-        with open(cls.filepath, 'wb') as output_file:
-            np.save(output_file, cls.data)
-
-    @classmethod
-    def create_directory(cls):
-        directory = Path(cls.filepath).parent
-        directory.mkdir(parents=True, exist_ok=True) 
 
     @classmethod
     def generate_stats(cls, scores):

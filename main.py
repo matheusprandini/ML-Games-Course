@@ -1,6 +1,7 @@
 import logging
 import os
 from data.data_collector import DataCollector
+from data.data_handler import DataHandler
 
 from games.game import Game
 from games.catch_game import CatchGame
@@ -40,6 +41,11 @@ def collect_data(game, agent, num_tries):
     logger.info(f'----- Collecting Data -----')
     DataCollector.collect(game, agent, num_tries)
 
+def prepare_data():
+    logger.info(f'----- Preparing Data -----')
+    DataHandler.prepare()
+
+
 def process():
     game: Game = games_translator[os.getenv('GAME', 'Catch')]
     agent = agents_translator[os.getenv('AGENT', 'Random')]
@@ -50,5 +56,7 @@ def process():
         play(game, agent, num_tries)
     elif type == 'COLLECT':
         collect_data(game, agent, num_tries)
+    elif type == 'PREPARE':
+        prepare_data()
 
 process()

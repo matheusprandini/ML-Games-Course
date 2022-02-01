@@ -27,7 +27,6 @@ class DataHandler():
     def prepare(cls):
         data = list(np.load(cls.source_filepath, allow_pickle=True))
         cls.balance_data(data)
-        cls.apply_pixel_wise_normalization()
         cls.save_data(cls.dest_filepath, cls.prepared_data)
 
     @classmethod
@@ -45,16 +44,14 @@ class DataHandler():
             cls.prepared_data.extend(examples)
 
     @classmethod
-    def apply_pixel_wise_normalization(cls):
-        max_value_pixel = max(map(lambda example: np.max(example[0]), cls.prepared_data))
-        cls.prepared_data = list(
-            map(lambda example: [np.array(example[0]) / max_value_pixel, example[1]], cls.prepared_data)
-        )
+    def apply_pixel_wise_normalization(cls, frame):
+        return (frame.astype('float32') / 255.0)
 
     @classmethod
     def preprocess_frame(cls, frame):
         preprocessed_frame = cls.convert_frame_color(frame)
         preprocessed_frame = cls.resize_frame(preprocessed_frame)
+        preprocessed_frame = cls.apply_pixel_wise_normalization(preprocessed_frame)
         return preprocessed_frame
 
     @classmethod

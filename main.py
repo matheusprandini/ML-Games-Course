@@ -1,13 +1,19 @@
 import logging
 import os
+
+import numpy as np
+from agents.neural_network_agent import NeuralNetworkAgent
 from data.data_collector import DataCollector
 from data.data_handler import DataHandler
 
+from enums.action import Action
 from games.game import Game
 from games.catch_game import CatchGame
 from games.snake_game import SnakeGame
 from agents.random_agent import RandomAgent
 from agents.human_agent import HumanAgent
+from neural_networks.cnn_baseline import CnnBaseline
+from neural_networks.mlp_baseline import MlpBaseline
 
 
 logging.basicConfig()
@@ -21,7 +27,13 @@ games_translator = {
 
 agents_translator = {
     'Random': RandomAgent(),
-    'Human': HumanAgent()
+    'Human': HumanAgent(),
+    'NeuralNetwork': NeuralNetworkAgent()
+}
+
+models_translator = {
+    'MLP': MlpBaseline(),
+    'CNN': CnnBaseline()
 }
 
 def play(game, agent, num_tries):
@@ -34,8 +46,8 @@ def play(game, agent, num_tries):
         game_over = False
         while not game_over:
             action = agent.choose_action(frame)
-            frame, reward, game_over, score = game.step(action)
-            logger.info(f"Action: {action} - Reward: {reward} - Game Over: {game_over} - Score: {score}")
+            frame, environment_action, reward, game_over, score = game.step(action)
+            logger.info(f"Action: {Action(environment_action).name} - Reward: {reward} - Game Over: {game_over} - Score: {score}")
 
 def collect_data(game, agent, num_tries):
     logger.info(f'----- Collecting Data -----')
@@ -45,6 +57,23 @@ def prepare_data():
     logger.info(f'----- Preparing Data -----')
     DataHandler.prepare()
 
+def train_model(game_name):
+    logger.info(f'----- Training Model -----')
+
+    model_name = os.getenv('MODEL_NAME').upper()
+    color_mode = os.getenv('COLOR_MODE').upper()
+    frame_height = os.getenv('FRAME_HEIGHT')
+    frame_width = os.getenv('FRAME_WIDTH')
+
+    num_output_neurons = 3 if game_name.upper() == 'CATCH' else 4
+    num_channels = 1 if color_mode == 'GRAYSCALE' else 3
+    input_shape = frame_height*frame_width*num_channels if model_name == 'MLP' else (frame_height, frame_width, num_channels)
+
+    data = list(np.load(DataHandler.dest_filepath, allow_pickle=True))
+
+    model = models_translator[model_name]
+    model.build(input_shape, num_output_neurons)
+    model.training(data)
 
 def process():
     game: Game = games_translator[os.getenv('GAME', 'Catch')]
@@ -58,5 +87,7 @@ def process():
         collect_data(game, agent, num_tries)
     elif type == 'PREPARE':
         prepare_data()
+    elif type == 'TRAIN':
+        train_model(game.name)
 
 process()

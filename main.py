@@ -39,6 +39,9 @@ models_translator = {
 def play(game, agent, num_tries):
     logger.info(f'----- Starting Execution -----')
 
+    if type(agent) == NeuralNetworkAgent:
+        agent.load()
+
     for i in range(num_tries):
         logger.info(f'Game: {game.name} - Agent: {agent.name} - Try: {i}')
         game.reset()

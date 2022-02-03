@@ -10,10 +10,12 @@ from tensorflow.keras.models import load_model
 class NeuralNetworkAgent(Agent):
 
     def __init__(self):
-        self.model = load_model(os.getenv('MODEL_NAME'))
         super().__init__(
             name=os.getenv('AGENT_NAME', 'NN Agent')
         )
+
+    def load(self):
+        self.model = load_model(os.getenv('MODEL_NAME'))
 
     def choose_action(self, frame):
         preprocessed_frame = DataHandler.preprocess_frame(frame)

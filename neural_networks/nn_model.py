@@ -9,6 +9,7 @@ class NnModel(object):
 
     def __init__(self):
         self.model_name = os.getenv('MODEL_NAME')
+        self.color = os.getenv('COLOR_MODE')
 
     def generate_input_and_output_data(self, data):
         input_data = []
@@ -37,15 +38,24 @@ class NnModel(object):
         
         return x_train, y_train, x_test, y_test
 
+    def convert_input_shape(self, inputs):
+        input_shape = inputs[0].shape
+        converted_input_shape = input_shape + (1,) if self.color == 'GRAYSCALE' else input_shape
+        converted_input_shape = (-1,) + (np.prod(converted_input_shape),) if self.model_mode == 'MLP' else (-1,) + converted_input_shape
+        return converted_input_shape
+
     def training(self, data, batch_size=64, epochs=100, split_fraction=0.8):
         inputs, labels = self.generate_input_and_output_data(data)
 
         inputs_train, labels_train, inputs_test, labels_test = self.splitting_data(inputs, labels, split_fraction)
-        input_shape = (-1, 32*32)
-        inputs_train = np.array(inputs_train).reshape(input_shape) 
-        labels_train = utils.to_categorical(labels_train, num_classes=3)
+        
+        input_shape = self.convert_input_shape(inputs_train)
+        num_classes = len(set(labels_train))
+
+        inputs_train = np.array(inputs_train).reshape(input_shape)
+        labels_train = utils.to_categorical(labels_train, num_classes)
         inputs_test = np.array(inputs_test).reshape(input_shape)
-        labels_test = utils.to_categorical(labels_test, num_classes=3)
+        labels_test = utils.to_categorical(labels_test, num_classes)
 
         self.compile()
 

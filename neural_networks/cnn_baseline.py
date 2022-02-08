@@ -9,6 +9,8 @@ from neural_networks.nn_model import NnModel
 
 class CnnBaseline(NnModel):
 
+    model_mode = 'CNN'
+
     def build(self, input_shape, output_neurons):
         model = Sequential()
 
@@ -44,7 +46,7 @@ class CnnBaseline(NnModel):
         
         model.summary()
 
-        return model
+        self.model = model
     
     def compile(self):
         self.model.compile(optimizer=Adam(),

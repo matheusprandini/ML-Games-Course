@@ -5,15 +5,15 @@ from neural_networks.nn_model import NnModel
 
 class MlpBaseline(NnModel):
 
-    def build(self, input_shape, output_neurons):
-        model = Sequential()
-        model.add(layers.Dense(1024, activation='relu', input_shape=input_shape))
-        model.add(layers.Dense(1024, activation='relu'))
-        model.add(layers.Dense(output_neurons, activation='sigmoid'))
+    model_mode = 'MLP'
 
-        model.summary()
-		
-        return model
+    def build(self, input_shape, output_neurons):
+        self.model = Sequential()
+        self.model.add(layers.Dense(1024, activation='relu', input_shape=input_shape))
+        self.model.add(layers.Dense(1024, activation='relu'))
+        self.model.add(layers.Dense(output_neurons, activation='sigmoid'))
+
+        self.model.summary()
 
     def compile(self):
-        self.model.compile(optimizer=optimizers.SGD(lr=0.05, momentum=0.0, decay=0.0, nesterov=False), loss='mean_squared_error', metrics=['accuracy'])
+        self.model.compile(optimizer=optimizers.SGD(lr=0.1, momentum=0.0, decay=0.0, nesterov=False), loss='mean_squared_error', metrics=['accuracy'])

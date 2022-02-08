@@ -63,18 +63,18 @@ def prepare_data():
 def train_model(game_name):
     logger.info(f'----- Training Model -----')
 
-    model_name = os.getenv('MODEL_NAME').upper()
+    model_mode = os.getenv('MODEL_NODE').upper()
     color_mode = os.getenv('COLOR_MODE').upper()
-    frame_height = os.getenv('FRAME_HEIGHT')
-    frame_width = os.getenv('FRAME_WIDTH')
+    frame_height = int(os.getenv('FRAME_HEIGHT'))
+    frame_width = int(os.getenv('FRAME_WIDTH'))
 
     num_output_neurons = 3 if game_name.upper() == 'CATCH' else 4
     num_channels = 1 if color_mode == 'GRAYSCALE' else 3
-    input_shape = frame_height*frame_width*num_channels if model_name == 'MLP' else (frame_height, frame_width, num_channels)
+    input_shape = (frame_height*frame_width*num_channels,) if model_mode == 'MLP' else (frame_height, frame_width, num_channels)
 
     data = list(np.load(DataHandler.dest_filepath, allow_pickle=True))
 
-    model = models_translator[model_name]
+    model = models_translator[model_mode]
     model.build(input_shape, num_output_neurons)
     model.training(data)
 

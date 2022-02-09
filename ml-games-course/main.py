@@ -63,7 +63,7 @@ def prepare_data():
 def train_model(game_name):
     logger.info(f'----- Training Model -----')
 
-    model_mode = os.getenv('MODEL_NODE').upper()
+    model_mode = os.getenv('MODEL_MODE').upper()
     color_mode = os.getenv('COLOR_MODE').upper()
     frame_height = int(os.getenv('FRAME_HEIGHT'))
     frame_width = int(os.getenv('FRAME_WIDTH'))

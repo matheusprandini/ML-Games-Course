@@ -27,7 +27,7 @@ As ações possíveis para o agente são:
 - **UP:** mover para cima;
 - **DOWN:** mover para baixo. 
 
-O agente pode realizar nenhum movimento, assim a ação considera é aquela corresponde à direção atual da _snake_.
+O agente pode realizar nenhum movimento, assim a ação considera é aquela corresponde à direção atual da _snake_ (isto é, a última ação tomada pelo agente).
 
 ## Seleção do Jogo
 

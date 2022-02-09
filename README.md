@@ -1,2 +1,81 @@
 # ML-Games-Course
-Códigos Base para a disciplina Aprendizagem de Máquina aplicada a Jogos (Machine Learning applied to Games)
+
+Código Base para a disciplina Aprendizagem de Máquina aplicada a Jogos.
+
+## Dependências
+
+### Python
+
+Recomenda-se utilizar, no mínimo, a versão Python 3.6.9.
+
+- Comando para instalação: ```sudo apt install -y python3-pip```
+
+### Ambiente Virtual
+
+É recomendado realizar a criação de um ambiente virtual para instalar as dependências do projeto.
+
+Fora do diretório do projeto, execute os seguintes comandos:
+
+- Instalação do vituralenv: ```sudo apt-get install python3-venv```
+
+- Criação do ambiente: ```python3 -m venv ml-games```
+
+- Ativação do ambiente: ```source ml-games/bin/activate```
+
+### Instalação de Dependências
+
+As versões das libs utilizadas no projeto estão no arquivo ```requirements.txt```. Dessa forma, basta executar os seguinte comandos com o ambiente virtual ativado:
+
+- ```pip3 install --upgrade pip```
+- ```pip3 install -r requirements.txt```
+
+## Configuração
+
+É necessário criar um arquivo ```.env``` no diretório raiz do projeto (ele contém as variáveis de ambiente necessárias para executar com sucesso). Ele é formado pelas variáveis abaixo (conforme arquivo ```.env.example```):
+
+```
+PYGAME_X_POSITION=400 # Representa a posição da janela do pygame no eixo horizontal
+PYGAME_Y_POSITION=200 # Representa a posição da janela do pygame no eixo vertical
+LOG_LEVEL="INFO" # Indica o nível do Log
+
+CATCH_NAME="Catch Game" # Representa o nome do jogo Catch
+CATCH_GRID_HEIGHT=400 # Representa o tamanho vertical do grid do jogo Catch
+CATCH_GRID_WIDTH=400 # Representa o tamanho horizontal do grid do jogo Catch
+CATCH_BALL_VELOCITY=20 # Representa a velocidade da bola do jogo Catch
+
+SNAKE_NAME="Snake Game" # Representa o nome do jogo Snake
+SNAKE_GRID_HEIGHT=200 # Representa o tamanho vertical do grid do jogo Snake
+SNAKE_GRID_WIDTH=200 # Representa o tamanho horizontal do grid do jogo Snake
+
+GAME="Snake" # Representa o jogo que será executado
+AGENT="NeuralNetwork" # Representa o agente que será utilizado
+NUM_TRIES=100 # Representa o número de tentativas do agente no ambiente
+TYPE="PLAY" # Representa o modo de execução do agente
+MODEL_MODE="CNN" # Representa o tipo de rede neural a ser utilizada
+
+COLOR_MODE="RGB" # Representa o modo de cor que será executado
+FRAME_HEIGHT=32 # Representa o tamanho em altura do frame
+FRAME_WIDTH=32 # Representa o tamanho em largura do frame
+COLLECTED_DATA_PATH="ml-games-course/data/extracted_data/snake_rgb_32x32_300_games.npy" # Representa o arquivo para salvar/carregar dados coletados
+PREPARED_DATA_PATH="ml-games-course/data/prepared_data/snake_rgb_32x32_300_games.npy" # Representa o arquivo para salvar/carregar dados preparados
+MODEL_NAME="ml-games-course/neural_networks/models/cnn_snake_rgb_32x32_300_games.h5" # Representa o arquivo com o modelo da rede neural a ser utilizado
+```
+
+### Exportação das Variáveis
+
+Sempre que o arquivo ```.env``` for modificado, é necessário exportar as novas variáveis antes de rodar o projeto pelo seguinte comando no diretório raiz: ```export $(cat .env | xargs)```
+
+## Modos de Execução
+
+Os modos de execução (variável ```TYPE```) podem receber os seguintes valores:
+
+- **COLLECT:** responsável por realizar a coleta de dados do agente.
+- **PLAY:** responsável por executar diversas partidas do agente.
+- **PREPARE:** responsável por efetuar a preparação dos dados para o treinamento.
+- **TRAIN:** responsável por realizar o treinamento das redes neurais.
+
+Os modos descritos acima e a configuração do arquivo ```.env``` serão mais explicados no diretório ```docs/```.
+
+## Execução do Projeto
+
+O seguinte comando deve ser executado no diretório raiz do projeto: ```python3 ml-games-course/main.py``` 

@@ -70,7 +70,7 @@ Os modos de execução (variável ```TYPE```) podem receber os seguintes valores
 - **PREPARE:** responsável por efetuar a preparação dos dados para o treinamento.
 - **TRAIN:** responsável por realizar o treinamento das redes neurais.
 
-Os modos descritos acima e a configuração do arquivo ```.env``` serão mais explicados no diretório ```docs/```.
+Os modos descritos acima e a configuração do arquivo ```.env``` serão mais explicados em [Docs](docs/).
 
 ## Execução do Projeto
 

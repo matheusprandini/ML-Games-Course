@@ -20,13 +20,13 @@ class SnakeGame(Game):
         super().reset()
 
         self.direction = Action.LEFT.value
-		
-        self.snake = [(50, 50), (60, 50), (70,50)]
+
+        self.snake = [(80, 100), (90, 100), (100, 100)]
         self.head_skin = pygame.Surface((10,10))
         self.head_skin.fill(self.COLOR_GREEN)
         self.tail_skin = pygame.Surface((10,10))
         self.tail_skin.fill(self.COLOR_WHITE)
-        
+
         self.apple_pos = self.generate_random_position()
         self.apple = pygame.Surface((10,10))
         self.apple.fill(self.COLOR_RED)
@@ -73,8 +73,7 @@ class SnakeGame(Game):
 
     def update_game_state(self):
         if self.has_apple_collision():
-            self.apple_pos = self.generate_random_position()
-            self.snake.append((0,0))
+            self.game_over = True
             self.score += 10
             self.current_reward = 1
 

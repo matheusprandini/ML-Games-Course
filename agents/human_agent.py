@@ -27,4 +27,4 @@ class HumanAgent(Agent):
                     return Action.UP.value
                 elif event.key == K_DOWN:
                     return Action.DOWN.value
-        return -1
+        return Action.NOTHING.value

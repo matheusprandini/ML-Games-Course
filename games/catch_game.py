@@ -1,4 +1,3 @@
-import numpy as np
 import pygame
 import random
 import os
@@ -23,7 +22,6 @@ class CatchGame(Game):
         self.PADDLE_VELOCITY = 20
         self.GAME_FLOOR = 350
         self.GAME_CEILING = 10
-        
 
     def reset(self):
         super().reset()
@@ -41,6 +39,7 @@ class CatchGame(Game):
             if self.paddle_x > self.GAME_WIDTH - self.PADDLE_WIDTH:
                 self.paddle_x = self.GAME_WIDTH - self.PADDLE_WIDTH - self.PADDLE_VELOCITY
         else:
+            action = Action.NOTHING.value
             pass
         self.environment_action = action
 

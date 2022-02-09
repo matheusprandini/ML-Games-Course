@@ -31,35 +31,31 @@ As versões das libs utilizadas no projeto estão no arquivo ```requirements.txt
 
 ## Configuração
 
-É necessário criar um arquivo ```.env``` no diretório raiz do projeto (ele contém as variáveis de ambiente necessárias para executar com sucesso). Ele é formado pelas variáveis abaixo (conforme arquivo ```.env.example```):
+É necessário criar um arquivo ```.env``` no diretório raiz do projeto (ele contém as variáveis de ambiente necessárias para executar com sucesso). Ele é formado pelas variáveis abaixo (exemplo no arquivo ```.env.example```):
 
-```
-PYGAME_X_POSITION=400 # Representa a posição da janela do pygame no eixo horizontal
-PYGAME_Y_POSITION=200 # Representa a posição da janela do pygame no eixo vertical
-LOG_LEVEL="INFO" # Indica o nível do Log
-
-CATCH_NAME="Catch Game" # Representa o nome do jogo Catch
-CATCH_GRID_HEIGHT=400 # Representa o tamanho vertical do grid do jogo Catch
-CATCH_GRID_WIDTH=400 # Representa o tamanho horizontal do grid do jogo Catch
-CATCH_BALL_VELOCITY=20 # Representa a velocidade da bola do jogo Catch
-
-SNAKE_NAME="Snake Game" # Representa o nome do jogo Snake
-SNAKE_GRID_HEIGHT=200 # Representa o tamanho vertical do grid do jogo Snake
-SNAKE_GRID_WIDTH=200 # Representa o tamanho horizontal do grid do jogo Snake
-
-GAME="Snake" # Representa o jogo que será executado
-AGENT="NeuralNetwork" # Representa o agente que será utilizado
-NUM_TRIES=100 # Representa o número de tentativas do agente no ambiente
-TYPE="PLAY" # Representa o modo de execução do agente
-MODEL_MODE="CNN" # Representa o tipo de rede neural a ser utilizada
-
-COLOR_MODE="RGB" # Representa o modo de cor que será executado
-FRAME_HEIGHT=32 # Representa o tamanho em altura do frame
-FRAME_WIDTH=32 # Representa o tamanho em largura do frame
-COLLECTED_DATA_PATH="ml-games-course/data/extracted_data/snake_rgb_32x32_300_games.npy" # Representa o arquivo para salvar/carregar dados coletados
-PREPARED_DATA_PATH="ml-games-course/data/prepared_data/snake_rgb_32x32_300_games.npy" # Representa o arquivo para salvar/carregar dados preparados
-MODEL_NAME="ml-games-course/neural_networks/models/cnn_snake_rgb_32x32_300_games.h5" # Representa o arquivo com o modelo da rede neural a ser utilizado
-```
+|   **Nome**   |  **Valor _Default_**  |    **Descrição**    |
+| :---:        |     :---:      |          :---: |
+|PYGAME_X_POSITION| 400 | Representa a posição da janela do pygame no eixo horizontal    |
+|PYGAME_Y_POSITION| 200 | Representa a posição da janela do pygame no eixo vertical      |
+|LOG_LEVEL| INFO | Indica o nível do Log |
+|CATCH_NAME| Catch Game | Representa o nome do jogo Catch |
+|CATCH_GRID_HEIGHT| 400 | Representa o tamanho vertical do grid do jogo Catch |
+|CATCH_GRID_WIDTH| 400 | Representa o tamanho horizontal do grid do jogo Catch |
+|CATCH_BALL_VELOCITY| 20 | Representa a velocidade da bola do jogo Catch |
+|SNAKE_NAME| Snake Game | Representa o nome do jogo Snake |
+|SNAKE_GRID_HEIGHT| 200 |Representa o tamanho vertical do grid do jogo Snake |
+|SNAKE_GRID_WIDTH| 200 | Representa o tamanho horizontal do grid do jogo Snake |
+|GAME| Snake | Representa o jogo que será executado |
+|AGENT| Human | Representa o agente que será utilizado |
+|NUM_TRIES| 100 | Representa o número de tentativas do agente no ambiente |
+|TYPE| PLAY | Representa o modo de execução do agente |
+|MODEL_MODE| CNN | Representa o tipo de rede neural a ser utilizada (utilizado apenas quando ```AGENT=NeuralNetwork```) |
+|COLOR_MODE| RGB | Representa o modo de cor que será executado |
+|FRAME_HEIGHT| 32 | Representa o tamanho em altura do frame |
+|FRAME_WIDTH| 32 | Representa o tamanho em largura do frame |
+|COLLECTED_DATA_PATH| - | Representa o arquivo para salvar/carregar dados coletados |
+|PREPARED_DATA_PATH| - | Representa o arquivo para salvar/carregar dados preparados |
+|MODEL_NAME| - | Representa o arquivo com o modelo da rede neural a ser utilizado |
 
 ### Exportação das Variáveis
 

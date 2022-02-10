@@ -61,6 +61,7 @@ Assim, um novo modelo ```test_mlp_catch_grayscale_32x32_1000_games.h5``` foi ger
 ```
 GAME="Catch"
 AGENT="NeuralNetwork"
+NUM_TRIES=20
 TYPE="PLAY"
 MODEL_MODE="MLP"
 
@@ -68,6 +69,7 @@ COLOR_MODE="GRAYSCALE"
 FRAME_HEIGHT=32
 FRAME_WIDTH=32
 MODEL_NAME="ml-games-course/neural_networks/models/test_mlp_catch_grayscale_32x32_1000_games.h5"
+
 ```
 
 Pronto, chegamos ao fim dos primeiros passos no projeto. Esperamos que tenha gostado!

@@ -75,3 +75,7 @@ Os modos descritos acima e a configuração do arquivo ```.env``` serão mais ex
 ## Execução do Projeto
 
 O seguinte comando deve ser executado no diretório raiz do projeto: ```python3 ml-games-course/main.py``` 
+
+## Guia Tutorial
+
+O diretório [Docs](docs/) contém os documentos necessários para o entendimento do projeto e também apresenta um guia para compreender os passos para coletar e preparar os dados com o objetivo treinar redes neurais e testar nos ambientes.

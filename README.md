@@ -50,6 +50,10 @@ As versões das libs utilizadas no projeto estão no arquivo ```requirements.txt
 |NUM_TRIES| 100 | Representa o número de tentativas do agente no ambiente |
 |TYPE| PLAY | Representa o modo de execução do agente |
 |MODEL_MODE| CNN | Representa o tipo de rede neural a ser utilizada (utilizado apenas quando ```AGENT=NeuralNetwork```) |
+|BATCH_SIZE| 64 | Representa o tamanho do lote de exemplos utilizado no treinamento de redes neurais |
+|LEARNING_RATE| 0.05 | Representa a taxa de aprendizado |
+|NUM_EPOCHS| 50 | Representa o número de épocas no treinamento de redes neurais |
+|SPLIT_FRACTION| 0.8 | Representa a fração de divisão dos exemplos utilizados para o treinamento (no caso de 0.8, representa 80% de exemplos para treinamento e 20% para teste) |
 |COLOR_MODE| RGB | Representa o modo de cor que será executado |
 |FRAME_HEIGHT| 32 | Representa o tamanho em altura do frame |
 |FRAME_WIDTH| 32 | Representa o tamanho em largura do frame |

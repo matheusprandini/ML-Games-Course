@@ -15,5 +15,5 @@ class MlpBaseline(NnModel):
 
         self.model.summary()
 
-    def compile(self):
-        self.model.compile(optimizer=optimizers.SGD(lr=0.1, momentum=0.0, decay=0.0, nesterov=False), loss='mean_squared_error', metrics=['accuracy'])
+    def compile(self, learning_rate):
+        self.model.compile(optimizer=optimizers.SGD(lr=learning_rate, momentum=0.0, decay=0.0, nesterov=False), loss='mean_squared_error', metrics=['accuracy'])

@@ -68,6 +68,11 @@ def train_model(game_name):
     frame_height = int(os.getenv('FRAME_HEIGHT'))
     frame_width = int(os.getenv('FRAME_WIDTH'))
 
+    batch_size = int(os.getenv('BATCH_SIZE', 64))
+    learning_rate = float(os.getenv('LEARNING_RATE', 0.05))
+    num_epochs = int(os.getenv('NUM_EPOCHS', 100))
+    split_fraction = float(os.getenv('SPLIT_FRACTION', 0.8))
+
     num_output_neurons = 3 if game_name.upper() == 'CATCH' else 4
     num_channels = 1 if color_mode == 'GRAYSCALE' else 3
     input_shape = (frame_height*frame_width*num_channels,) if model_mode == 'MLP' else (frame_height, frame_width, num_channels)
@@ -76,7 +81,7 @@ def train_model(game_name):
 
     model = models_translator[model_mode]
     model.build(input_shape, num_output_neurons)
-    model.training(data)
+    model.training(data, batch_size, num_epochs, learning_rate, split_fraction)
 
 def process():
     game: Game = games_translator[os.getenv('GAME', 'Catch')]

@@ -48,7 +48,7 @@ class CnnBaseline(NnModel):
 
         self.model = model
     
-    def compile(self):
-        self.model.compile(optimizer=Adam(),
+    def compile(self, learning_rate):
+        self.model.compile(optimizer=Adam(lr=learning_rate),
                 loss='categorical_crossentropy',
                 metrics=['accuracy'])

@@ -2,12 +2,11 @@
 
 Esse diretório tem como principal função guiar o entedimento de utilização do projeto. As docs estão divididas pelos seguintes tópicos:
 
-- **[Agentes](docs/Agentes.md):** apresenta os agentes disponíveis e como funcionam.
+- **[Agentes](docs/Agentes.md):** apresenta os agentes disponíveis e como são executados.
 - **[Jogos](docs/Jogos.md):** descreve dos ambientes de jogo construídos e explica a forma de interação entre os agentes e tais ambientes.  
-- **[Modo-Collect](docs/Modo-Collect.md):** descreve todo o modo de coleta de dados.
-- **[Modo-Play](docs/Modo-Play.md):** descreve o modo de execução dos agentes nos ambientes.
-- **[Modo-Prepare](docs/Modo-Prepare.md):** descreve todo o modo de preparação de dados a serem utilizados no treinamento das redes neurais.
-- **[Modo-Train](docs/Modo-Train.md):** descreve todo o modo de treinamento das redes neurais.
+- **[Coleta de Dados](docs/Modo-Collect.md):** descreve todo o modo de coleta de dados.
+- **[Preparação dos Dados](docs/Modo-Prepare.md):** descreve todo o modo de preparação de dados a serem utilizados no treinamento das redes neurais.
+- **[Treinamento de Redes Neurais](docs/Modo-Train.md):** descreve todo o modo de treinamento das redes neurais.
 
 ## Guia
 
@@ -72,4 +71,14 @@ MODEL_NAME="ml-games-course/neural_networks/models/test_mlp_catch_grayscale_32x3
 
 ```
 
-Pronto, chegamos ao fim dos primeiros passos no projeto. Esperamos que tenha gostado!
+Pronto, chegamos ao fim dos primeiros passos no projeto. Esperamos que tenham gostado!
+
+Divirtam-se com o projeto e fiquem à vontade para usarem a criatividade e experimentarem vários setups para criação de novos agentes. Por fim, estão todos convidados a contribuírem com o projeto :)
+
+## Contatos
+
+Quaisquer dúvidas podem nos procurar (Rita, Matheus e Rodrigo).
+
+- **Rita:** ritasilvajulia@gmail.com
+- **Matheus Prandini:** matheusprandini.96@gmail.com
+- **Rodrigo Zamboni:** rodrigozamboni2@gmail.com 

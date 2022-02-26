@@ -22,7 +22,7 @@ NUM_TRIES=10
 TYPE="PLAY"
 ```
 
-Exporte as variáveis pelo comando: ```source .env```
+Exporte as variáveis pelo comando: ```export $(cat .env | xargs)```
 
 E execute o projeto: ```python3 ml-games-course/main.py```
 

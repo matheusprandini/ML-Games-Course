@@ -4,9 +4,8 @@ Esse diretório tem como principal função guiar o entedimento de utilização 
 
 - **[Agentes](Agentes.md):** apresenta os agentes disponíveis e como são executados.
 - **[Jogos](Jogos.md):** descreve dos ambientes de jogo construídos e explica a forma de interação entre os agentes e tais ambientes.  
-- **[Coleta de Dados](Modo-Collect.md):** descreve todo o modo de coleta de dados.
-- **[Preparação dos Dados](Modo-Prepare.md):** descreve todo o modo de preparação de dados a serem utilizados no treinamento das redes neurais.
-- **[Treinamento de Redes Neurais](Modo-Train.md):** descreve todo o modo de treinamento das redes neurais.
+
+**[Doing]:** doc com a descrição do processo de coleta e preparação dos dados, além do treinamento de redes neurais.
 
 ## Guia
 

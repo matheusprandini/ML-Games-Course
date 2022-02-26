@@ -12,7 +12,6 @@ from games.catch_game import CatchGame
 from games.snake_game import SnakeGame
 from agents.random_agent import RandomAgent
 from agents.human_agent import HumanAgent
-from neural_networks.cnn_baseline import CnnBaseline
 from neural_networks.mlp_baseline import MlpBaseline
 
 
@@ -32,8 +31,7 @@ agents_translator = {
 }
 
 models_translator = {
-    'MLP': MlpBaseline(),
-    'CNN': CnnBaseline()
+    'MLP': MlpBaseline()
 }
 
 def play(game, agent, num_tries):

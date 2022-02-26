@@ -49,7 +49,7 @@ As versões das libs utilizadas no projeto estão no arquivo ```requirements.txt
 |AGENT| Human | Representa o agente que será utilizado |
 |NUM_TRIES| 100 | Representa o número de tentativas do agente no ambiente |
 |TYPE| PLAY | Representa o modo de execução do agente |
-|MODEL_MODE| CNN | Representa o tipo de rede neural a ser utilizada (utilizado apenas quando ```AGENT=NeuralNetwork```) |
+|MODEL_MODE| MLP | Representa o tipo de rede neural a ser utilizada (utilizado apenas quando ```AGENT=NeuralNetwork```) |
 |BATCH_SIZE| 64 | Representa o tamanho do lote de exemplos utilizado no treinamento de redes neurais |
 |LEARNING_RATE| 0.05 | Representa a taxa de aprendizado |
 |NUM_EPOCHS| 50 | Representa o número de épocas no treinamento de redes neurais |

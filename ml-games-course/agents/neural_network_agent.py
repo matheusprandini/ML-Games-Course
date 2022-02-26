@@ -16,7 +16,7 @@ class NeuralNetworkAgent(Agent):
 
     def load(self):
         self.model = load_model(os.getenv('MODEL_NAME'))
-        self.mode = os.getenv('MODEL_MODE', 'CNN')
+        self.mode = os.getenv('MODEL_MODE', 'MLP')
         self.color = os.getenv('COLOR_MODE', 'GRAYSCALE')
 
     def convert_frame_shape(self, frame):

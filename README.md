@@ -63,7 +63,7 @@ As versões das libs utilizadas no projeto estão no arquivo ```requirements.txt
 
 ### Exportação das Variáveis
 
-Sempre que o arquivo ```.env``` for modificado, é necessário exportar as novas variáveis antes de rodar o projeto pelo seguinte comando no diretório raiz: ```export $(cat .env | xargs)```
+Sempre que o arquivo ```.env``` for modificado, é necessário exportar as novas variáveis antes de rodar o projeto pelo seguinte comando no diretório raiz: ```source .env```
 
 ## Modos de Execução
 

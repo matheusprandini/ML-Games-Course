@@ -71,7 +71,7 @@ def train_model(game_name):
     num_epochs = int(os.getenv('NUM_EPOCHS', 100))
     split_fraction = float(os.getenv('SPLIT_FRACTION', 0.8))
 
-    num_output_neurons = 3 if game_name.upper() == 'CATCH' else 4
+    num_output_neurons = 3 if 'CATCH' in game_name.upper() else 4
     num_channels = 1 if color_mode == 'GRAYSCALE' else 3
     input_shape = (frame_height*frame_width*num_channels,) if model_mode == 'MLP' else (frame_height, frame_width, num_channels)
 

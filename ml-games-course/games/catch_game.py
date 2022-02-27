@@ -14,7 +14,7 @@ class CatchGame(Game):
             int(os.getenv('CATCH_GRID_WIDTH', 400)),
             int(os.getenv('CATCH_GRID_HEIGHT', 400))
         )
-        self.BALL_VELOCITY = int(os.getenv('CATCH_BALL_VELOCITY', 10))
+        self.BALL_VELOCITY = int(os.getenv('CATCH_BALL_VELOCITY', 20))
         self.BALL_WIDTH = 20
         self.BALL_HEIGHT = 20
         self.PADDLE_WIDTH = 50

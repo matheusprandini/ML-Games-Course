@@ -44,23 +44,6 @@ AGENT="NeuralNetwork"
 TYPE="TRAIN"
 MODEL_MODE="MLP"
 
-BATCH_SIZE=64
-LEARNING_RATE=0.1
-NUM_EPOCHS=50
-SPLIT_FRACTION=0.8
-
-PREPARED_DATA_PATH="ml-games-course/data/prepared_data/catch_grayscale_32x32_1000_games.npy"
-MODEL_NAME="ml-games-course/neural_networks/models/test_mlp_catch_grayscale_32x32_1000_games.h5"
-```
-
-Assim, um novo modelo ```test_mlp_catch_grayscale_32x32_1000_games.h5``` foi gerado a partir do treinamento. Vamos agora executar o agente baseado em rede neural com esse modelo por 20 partidas. Para isso, basta modificar as variáveis de acordo com o formato abaixo, exportar e rodar o projeto.
-
-```
-GAME="Catch"
-AGENT="NeuralNetwork"
-TYPE="TRAIN"
-MODEL_MODE="MLP"
-
 LEARNING_RATE=0.1
 LOSS_NAME="mean_squared_error"
 OPTIMIZER_NAME="sgd"
@@ -72,6 +55,21 @@ FRAME_HEIGHT=32
 FRAME_WIDTH=32
 
 PREPARED_DATA_PATH="ml-games-course/data/prepared_data/catch_grayscale_32x32_1000_games.npy"
+MODEL_NAME="ml-games-course/neural_networks/models/test_mlp_catch_grayscale_32x32_1000_games.h5"
+```
+
+Assim, um novo modelo ```test_mlp_catch_grayscale_32x32_1000_games.h5``` foi gerado a partir do treinamento. Vamos agora executar o agente baseado em rede neural com esse modelo por 20 partidas. Para isso, basta modificar as variáveis de acordo com o formato abaixo, exportar e rodar o projeto.
+
+```
+GAME="Catch"
+AGENT="NeuralNetwork"
+TYPE="PLAY"
+MODEL_MODE="MLP"
+
+COLOR_MODE="GRAYSCALE"
+FRAME_HEIGHT=32
+FRAME_WIDTH=32
+
 MODEL_NAME="ml-games-course/neural_networks/models/test_mlp_catch_grayscale_32x32_1000_games.h5"
 ```
 

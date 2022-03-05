@@ -4,8 +4,7 @@ Esse diretório tem como principal função guiar o entedimento de utilização 
 
 - **[Agentes](Agentes.md):** apresenta os agentes disponíveis e como são executados.
 - **[Jogos](Jogos.md):** descreve dos ambientes de jogo construídos e explica a forma de interação entre os agentes e tais ambientes.  
-
-**[Doing]:** doc com a descrição do processo de coleta e preparação dos dados, além do treinamento de redes neurais.
+- **[Tutorial - Colab](Redes_Neurais_Jogo_Catch.ipynb):** contém o tutorial de exploração dos dados e de construção dos modelos para o jogo Catch.
 
 ## Guia
 
@@ -63,6 +62,7 @@ TYPE="TRAIN"
 MODEL_MODE="MLP"
 
 LEARNING_RATE=0.1
+LOSS_NAME="mean_squared_error"
 OPTIMIZER_NAME="sgd"
 NUM_EPOCHS=50
 SPLIT_FRACTION=0.8

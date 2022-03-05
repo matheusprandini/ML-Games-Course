@@ -1,1 +1,0 @@
-# Treinamento de Redes Neurais

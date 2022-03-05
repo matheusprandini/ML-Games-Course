@@ -40,15 +40,21 @@ def play(game, agent, num_tries):
     if type(agent) == NeuralNetworkAgent:
         agent.load()
 
+    num_wins = 0
     for i in range(num_tries):
         logger.info(f'Game: {game.name} - Agent: {agent.name} - Try: {i}')
         game.reset()
         frame = game.get_frame()
         game_over = False
+        num_actions = 0
         while not game_over:
-            action = agent.choose_action(frame)
+            num_actions += 1
+            action = agent.choose_action(frame) if num_actions % 200 == 0 else np.random.randint(0, len(Action), size=1)[0]
             frame, environment_action, reward, game_over, score = game.step(action)
             logger.info(f"Action: {Action(environment_action).name} - Reward: {reward} - Game Over: {game_over} - Score: {score}")
+        if score > 0:
+            num_wins += 1
+        logger.info(f"Num Games: {i+1} - Wins: {num_wins}")
 
 def collect_data(game, agent, num_tries):
     logger.info(f'----- Collecting Data -----')
@@ -67,9 +73,9 @@ def train_model(game_name):
     frame_width = int(os.getenv('FRAME_WIDTH'))
 
     batch_size = int(os.getenv('BATCH_SIZE', 64))
-    learning_rate = float(os.getenv('LEARNING_RATE', 0.05))
     num_epochs = int(os.getenv('NUM_EPOCHS', 100))
     split_fraction = float(os.getenv('SPLIT_FRACTION', 0.8))
+    optimizer_name = os.getenv('OPTIMIZER_NAME', 'adam')
 
     num_output_neurons = 3 if 'CATCH' in game_name.upper() else 4
     num_channels = 1 if color_mode == 'GRAYSCALE' else 3
@@ -79,7 +85,7 @@ def train_model(game_name):
 
     model = models_translator[model_mode]
     model.build(input_shape, num_output_neurons)
-    model.training(data, batch_size, num_epochs, learning_rate, split_fraction)
+    model.training(data, batch_size, num_epochs, optimizer_name, split_fraction)
 
 def process():
     game: Game = games_translator[os.getenv('GAME', 'Catch')]

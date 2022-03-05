@@ -4,8 +4,7 @@ Esse diretório tem como principal função guiar o entedimento de utilização 
 
 - **[Agentes](Agentes.md):** apresenta os agentes disponíveis e como são executados.
 - **[Jogos](Jogos.md):** descreve dos ambientes de jogo construídos e explica a forma de interação entre os agentes e tais ambientes.  
-
-**[Doing]:** doc com a descrição do processo de coleta e preparação dos dados, além do treinamento de redes neurais.
+- **[Tutorial - Colab](Redes_Neurais_Jogo_Catch.ipynb):** contém o tutorial de exploração dos dados e de construção dos modelos para o jogo Catch.
 
 ## Guia
 
@@ -59,15 +58,21 @@ Assim, um novo modelo ```test_mlp_catch_grayscale_32x32_1000_games.h5``` foi ger
 ```
 GAME="Catch"
 AGENT="NeuralNetwork"
-NUM_TRIES=20
-TYPE="PLAY"
+TYPE="TRAIN"
 MODEL_MODE="MLP"
+
+LEARNING_RATE=0.1
+LOSS_NAME="mean_squared_error"
+OPTIMIZER_NAME="sgd"
+NUM_EPOCHS=50
+SPLIT_FRACTION=0.8
 
 COLOR_MODE="GRAYSCALE"
 FRAME_HEIGHT=32
 FRAME_WIDTH=32
-MODEL_NAME="ml-games-course/neural_networks/models/test_mlp_catch_grayscale_32x32_1000_games.h5"
 
+PREPARED_DATA_PATH="ml-games-course/data/prepared_data/catch_grayscale_32x32_1000_games.npy"
+MODEL_NAME="ml-games-course/neural_networks/models/test_mlp_catch_grayscale_32x32_1000_games.h5"
 ```
 
 Pronto, chegamos ao fim dos primeiros passos no projeto. Esperamos que tenham gostado!

@@ -21,12 +21,16 @@ class DataHandler():
         int(os.getenv('FRAME_HEIGHT', 100)),
         int(os.getenv('FRAME_WIDTH', 100))
     )
+    is_balance_data = bool(os.getenv('BALANCED_DATA', True))
     prepared_data = []
 
     @classmethod
     def prepare(cls):
         data = list(np.load(cls.source_filepath, allow_pickle=True))
-        cls.balance_data(data)
+        if cls.is_balance_data:
+            cls.balance_data(data)
+        else:
+            cls.prepared_data = data
         cls.save_data(cls.dest_filepath, cls.prepared_data)
 
     @classmethod

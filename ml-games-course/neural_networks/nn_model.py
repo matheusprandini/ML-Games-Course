@@ -44,7 +44,7 @@ class NnModel(object):
         converted_input_shape = (-1,) + (np.prod(converted_input_shape),) if self.model_mode == 'MLP' else (-1,) + converted_input_shape
         return converted_input_shape
 
-    def training(self, data, batch_size, epochs, learning_rate, split_fraction):
+    def training(self, data, batch_size, epochs, optimizer_name, split_fraction):
         inputs, labels = self.generate_input_and_output_data(data)
 
         inputs_train, labels_train, inputs_test, labels_test = self.splitting_data(inputs, labels, split_fraction)
@@ -57,7 +57,7 @@ class NnModel(object):
         inputs_test = np.array(inputs_test).reshape(input_shape)
         labels_test = utils.to_categorical(labels_test, num_classes)
 
-        self.compile(learning_rate)
+        self.compile(optimizer_name)
 
         self.model.fit(inputs_train, labels_train, batch_size=batch_size,
                     validation_data=(inputs_test, labels_test), epochs=epochs)

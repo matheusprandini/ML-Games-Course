@@ -21,7 +21,7 @@ class DataHandler():
         int(os.getenv('FRAME_HEIGHT', 100)),
         int(os.getenv('FRAME_WIDTH', 100))
     )
-    is_balance_data = bool(os.getenv('BALANCED_DATA', True))
+    is_balance_data = bool(int(os.getenv('BALANCED_DATA', 1)))
     prepared_data = []
 
     @classmethod

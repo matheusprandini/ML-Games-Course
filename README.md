@@ -47,11 +47,14 @@ As versões das libs utilizadas no projeto estão no arquivo ```requirements.txt
 |SNAKE_GRID_WIDTH| 200 | Representa o tamanho horizontal do grid do jogo Snake |
 |GAME| Snake | Representa o jogo que será executado |
 |AGENT| Human | Representa o agente que será utilizado |
-|NUM_TRIES| 100 | Representa o número de tentativas do agente no ambiente |
+|NUM_TRIES| 10 | Representa o número de tentativas do agente no ambiente |
 |TYPE| PLAY | Representa o modo de execução do agente |
 |MODEL_MODE| MLP | Representa o tipo de rede neural a ser utilizada (utilizado apenas quando ```AGENT=NeuralNetwork```) |
+|BALANCED_DATA| 1 | Representa se o processo de preparação irá balancear ou não os dados (default como 1 - True) |
 |BATCH_SIZE| 64 | Representa o tamanho do lote de exemplos utilizado no treinamento de redes neurais |
 |LEARNING_RATE| 0.05 | Representa a taxa de aprendizado |
+|LOSS_NAME| mean_squared_eror | Representa a função de perda |
+|OPTIMIZER_NAME| sgd | Representa o otimizador |
 |NUM_EPOCHS| 50 | Representa o número de épocas no treinamento de redes neurais |
 |SPLIT_FRACTION| 0.8 | Representa a fração de divisão dos exemplos utilizados para o treinamento (no caso de 0.8, representa 80% de exemplos para treinamento e 20% para teste) |
 |COLOR_MODE| RGB | Representa o modo de cor que será executado |

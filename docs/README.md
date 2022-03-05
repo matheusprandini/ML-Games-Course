@@ -59,15 +59,20 @@ Assim, um novo modelo ```test_mlp_catch_grayscale_32x32_1000_games.h5``` foi ger
 ```
 GAME="Catch"
 AGENT="NeuralNetwork"
-NUM_TRIES=20
-TYPE="PLAY"
+TYPE="TRAIN"
 MODEL_MODE="MLP"
+
+LEARNING_RATE=0.1
+OPTIMIZER_NAME="sgd"
+NUM_EPOCHS=50
+SPLIT_FRACTION=0.8
 
 COLOR_MODE="GRAYSCALE"
 FRAME_HEIGHT=32
 FRAME_WIDTH=32
-MODEL_NAME="ml-games-course/neural_networks/models/test_mlp_catch_grayscale_32x32_1000_games.h5"
 
+PREPARED_DATA_PATH="ml-games-course/data/prepared_data/catch_grayscale_32x32_1000_games.npy"
+MODEL_NAME="ml-games-course/neural_networks/models/test_mlp_catch_grayscale_32x32_1000_games.h5"
 ```
 
 Pronto, chegamos ao fim dos primeiros passos no projeto. Esperamos que tenham gostado!

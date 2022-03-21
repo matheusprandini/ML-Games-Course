@@ -13,6 +13,7 @@ from games.snake_game import SnakeGame
 from agents.random_agent import RandomAgent
 from agents.human_agent import HumanAgent
 from neural_networks.mlp_baseline import MlpBaseline
+from neural_networks.cnn_baseline import CnnBaseline
 
 
 logging.basicConfig()
@@ -31,7 +32,8 @@ agents_translator = {
 }
 
 models_translator = {
-    'MLP': MlpBaseline()
+    'MLP': MlpBaseline(),
+    'CNN': CnnBaseline()
 }
 
 def play(game, agent, num_tries):
@@ -46,8 +48,10 @@ def play(game, agent, num_tries):
         game.reset()
         frame = game.get_frame()
         game_over = False
+        num_actions = 0
         while not game_over:
-            action = agent.choose_action(frame)
+            num_actions += 1
+            action = agent.choose_action(frame) if num_actions % 200 != 0 else np.random.randint(0, len(Action), size=1)[0]
             frame, environment_action, reward, game_over, score = game.step(action)
             logger.info(f"Action: {Action(environment_action).name} - Reward: {reward} - Game Over: {game_over} - Score: {score}")
         if score > 0:

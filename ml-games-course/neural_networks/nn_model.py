@@ -3,6 +3,8 @@ import numpy as np
 
 from random import shuffle
 from tensorflow.keras import *
+from neural_networks.helpers.loss import Loss
+from neural_networks.helpers.optimizer import Optimizer
 
 
 class NnModel(object):
@@ -63,6 +65,13 @@ class NnModel(object):
                     validation_data=(inputs_test, labels_test), epochs=epochs)
 
         self.save_model()
+
+    def compile(self, optimizer_name):
+        self.model.compile(
+            optimizer=Optimizer.get(optimizer_name), 
+            loss=Loss.get(), 
+            metrics=['accuracy']
+        )
 
     def predict(self, input):
         return np.argmax(self.model.predict(input))
